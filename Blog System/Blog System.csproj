@@ -52,6 +52,7 @@
     <Compile Include="PostLogic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ProfileLogic.cs" />
   </ItemGroup>

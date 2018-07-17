@@ -1,1 +1,9 @@
 C:\Users\Jivko\Desktop\Programi\Blog System\Blog System\bin\Debug\Blog System.exe.config
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\bin\Debug\Blog System.exe.config
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\bin\Debug\Blog System.exe
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\bin\Debug\Blog System.pdb
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\obj\Debug\Blog System.csprojResolveAssemblyReference.cache
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\obj\Debug\Blog System.exe
+C:\Users\Jivko\Desktop\Programi\Blog-System\Blog System\obj\Debug\Blog System.pdb

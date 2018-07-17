@@ -12,6 +12,12 @@ namespace Blog_System
     public class PostLogic
     {
         private List<Post> posts;
+
+        public PostLogic()
+        {
+            this.posts = new List<Post>();
+        }
+
         public ReadOnlyCollection<Post> Posts
         {
             get
@@ -34,7 +40,7 @@ namespace Blog_System
 
         public void LoadPosts()
         {
-            if (Directory.Exists("../database/posts.json"))
+            if (File.Exists("../database/posts.json"))
             {
                 string jsonPosts = File.ReadAllText("../database/posts.json");
                 this.posts = JsonConvert.DeserializeObject<List<Post>>(jsonPosts);
@@ -43,9 +49,22 @@ namespace Blog_System
 
         public void CreatePost(string title, string content, int userId)
         {
-            int id = this.Posts.Last().Id;
+            int id = 0;
+
+            if (this.Posts.LastOrDefault() != null)
+            {
+                id = this.Posts.LastOrDefault().Id + 1;
+            }
+
             Post post = new Post(id, title, content, userId);
             this.posts.Add(post);
+        }
+
+        public void UpdatePost(string title, string content, int postId)
+        {
+            Post post = this.posts.Find(x => x.Id == postId);
+            post.Title = title;
+            post.Content = content;
         }
 
         public void DeletePost(int postId)
@@ -65,6 +84,19 @@ namespace Blog_System
             foreach (Post post in this.Posts)
             {
                 if (post.Id == postId)
+                {
+                    return post;
+                }
+            }
+
+            return null;
+        }
+
+        public Post OpenPost(string postTitle)
+        {
+            foreach (Post post in this.Posts)
+            {
+                if (post.Title == postTitle)
                 {
                     return post;
                 }
@@ -95,20 +127,23 @@ namespace Blog_System
 
         public void AddComment(int postId, string creatorName, string content)
         {
-            int commId = -1;
+            int commId = 0;
 
             foreach (Post post in this.posts)
             {
                 if (post.Id == postId)
                 {
-                    commId = post.Comments.Last().Id;
+                    if (post.Comments.LastOrDefault() != null)
+                    {
+                        commId = post.Comments.LastOrDefault().Id + 1;
+                    }
                     Comment comment = new Comment(commId, creatorName, content);
                     post.Comments.Add(comment);
                 }
             }
         }
 
-        public void DeleteComment(int postId, int  commentId)
+        public void DeleteComment(int postId, int commentId)
         {
             foreach (Post post in this.posts)
             {
@@ -119,6 +154,7 @@ namespace Blog_System
                         if (comment.Id == commentId)
                         {
                             post.Comments.Remove(comment);
+                            break;
                         }
                     }
                 }

@@ -10,6 +10,9 @@ namespace Blog_System
     {
         static void Main(string[] args)
         {
+            Renderer.LoadData();
+            Renderer.InitializeMainMenu();
+            Renderer.SaveData();
         }
     }
 }

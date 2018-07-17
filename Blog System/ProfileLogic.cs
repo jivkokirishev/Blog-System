@@ -11,7 +11,12 @@ namespace Blog_System
 {
     public class ProfileLogic
     {
-        private List<User> users = new List<User>();
+        private List<User> users;
+
+        public ProfileLogic()
+        {
+            this.users = new List<User>();
+        }
 
         public ReadOnlyCollection<User> Users
         {
@@ -25,7 +30,7 @@ namespace Blog_System
 
         public void LoadUsers()
         {
-            if (Directory.Exists("../database/users.json"))
+            if (File.Exists("../database/users.json"))
             {
                 string jsonUsers = File.ReadAllText("../database/users.json");
                 this.users = JsonConvert.DeserializeObject<List<User>>(jsonUsers);
@@ -44,17 +49,19 @@ namespace Blog_System
             File.WriteAllText("../database/users.json", jsonUsers);
         }
 
-        public void LogIn(string email, string password)
+        public bool LogIn(string email, string password)
         {
-            foreach (var user in this.Users)
+            foreach (var user in this.users)
             {
                 if (user.Email == email && user.Password == password)
                 {
                     this.IsLoggedIn = true;
                     this.LoggedUserId = user.Id;
-                    break;
+                    return true;
                 }
             }
+
+            return false;
         }
 
         public void LogOut()
@@ -65,7 +72,12 @@ namespace Blog_System
 
         public void Register(string name, string password, string email)
         {
-            int id = this.Users.Last().Id;
+            int id = 0;
+            if (this.Users.LastOrDefault() != null)
+            {
+                id = this.Users.LastOrDefault().Id + 1;
+            }
+            
             User user = new User(id, name, password, email);
             this.users.Add(user);
         }
